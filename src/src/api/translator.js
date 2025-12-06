@@ -10,13 +10,13 @@ export const translatorApi = {
         })
     },
     // 获取翻译包信息
-    getTranslatePackagesState: async () => {
-        return await request({
-            url: '/translate/get/packages/state',
-            method: 'post',
-            data: {  }
-        })
-    },
+    // getTranslatePackagesState: async () => {
+    //     return await request({
+    //         url: '/translate/get/packages/state',
+    //         method: 'post',
+    //         data: {  }
+    //     })
+    // },
     // 获取翻译设置
     getTranslateSetting: async () => {
         return await request({
@@ -26,13 +26,13 @@ export const translatorApi = {
         })
     },
     // 应用翻译设置
-    applyTranslateSetting: async (ss) => {
-        return await request({
-            url: '/translate/apply_setting',
-            method: 'post',
-            data: { setting: ss  }
-        })
-    },
+    // applyTranslateSetting: async (ss) => {
+    //     return await request({
+    //         url: '/translate/apply_setting',
+    //         method: 'post',
+    //         data: { setting: ss  }
+    //     })
+    // },
     // 安装翻译包
     installTranslatePackage: async () => {
         return await request({

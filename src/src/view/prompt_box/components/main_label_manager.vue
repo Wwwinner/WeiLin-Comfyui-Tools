@@ -162,31 +162,31 @@ onMounted(async () => {
   await load()
 
   // 1) 首次无数据：初始化示例并选中 + 通知父组件
-  if (items.value.length === 0) {
-    const id = genId()
-    items.value.push({
-      id,
-      name: '示例标签',
-      content: '',
-      createdAt: Date.now(),
-      updatedAt: Date.now(),
-      pinned: false,
-      highlighted: false,
-      order: 0
-    })
-    await save()
-    internalSelectedId.value = id         // 触发上面的 watcher -> 会 emit('select', {...})
-    return
-  }
+  // if (items.value.length === 0) {
+  //   const id = genId()
+  //   items.value.push({
+  //     id,
+  //     name: '示例标签',
+  //     content: '',
+  //     createdAt: Date.now(),
+  //     updatedAt: Date.now(),
+  //     pinned: false,
+  //     highlighted: false,
+  //     order: 0
+  //   })
+  //   await save()
+  //   internalSelectedId.value = id         // 触发上面的 watcher -> 会 emit('select', {...})
+  //   return
+  // }
 
   // 2) 有数据：校验 selectedId 是否仍然存在
-  if (!getById(internalSelectedId.value)) {
-    internalSelectedId.value = items.value[0]?.id ?? null  // 触发 watcher -> emit
-  } else {
-    // 存在：手动补发一次（以防 selectedId 未变化而 watcher不触发）
-    const node = getById(internalSelectedId.value)
-    emit('select', node ? { ...node } : null)
-  }
+  // if (!getById(internalSelectedId.value)) {
+  //   internalSelectedId.value = items.value[0]?.id ?? null  // 触发 watcher -> emit
+  // } else {
+  //   // 存在：手动补发一次（以防 selectedId 未变化而 watcher不触发）
+  //   const node = getById(internalSelectedId.value)
+  //   emit('select', node ? { ...node } : null)
+  // }
 })
 
 

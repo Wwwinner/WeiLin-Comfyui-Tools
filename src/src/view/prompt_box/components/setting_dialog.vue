@@ -750,18 +750,18 @@ const startPanel = () => {
 };
 
 
-const getTranskatePackagesState = () => {
-  translatorApi.getTranslatePackagesState().then(res => {
-    // console.log(res)
-    if (res.info == "ok") {
-      hasTranslaterPackage.value = true;
-    } else {
-      hasTranslaterPackage.value = false;
-    }
-  }).catch(err => {
-    message({ type: "warn", str: 'message.getTranslaterFail' });
-  })
-};
+// const getTranskatePackagesState = () => {
+//   translatorApi.getTranslatePackagesState().then(res => {
+//     // console.log(res)
+//     if (res.info == "ok") {
+//       hasTranslaterPackage.value = true;
+//     } else {
+//       hasTranslaterPackage.value = false;
+//     }
+//   }).catch(err => {
+//     message({ type: "warn", str: 'message.getTranslaterFail' });
+//   })
+// };
 
 const getTranskateSetting = () => {
   translatorApi.getTranslateSetting().then(res => {
@@ -842,30 +842,30 @@ const installTranslaterPackage = () => {
   // }, 1000);
 };
 
-const checkTranskatePackagesState = () => {
-  translatorApi.getTranslatePackagesState().then(res => {
-    // console.log(res)
-    if (res.info == "ok") {
-      hasTranslaterPackage.value = true;
-      // 停止定时器
-      if (installCheckInterval.value) {
-        clearInterval(installCheckInterval.value);
-        installCheckInterval.value = null;
-      }
-      message({ type: "success", str: 'message.tranlaterPackageInstallSuccess' });
-    } else {
-      hasTranslaterPackage.value = false;
-    }
-  }).catch(err => {
-    installTranslater.value = false;
-    // 出错时也停止定时器
-    if (installCheckInterval.value) {
-      clearInterval(installCheckInterval.value);
-      installCheckInterval.value = null;
-    }
-    message({ type: "warn", str: 'message.getTranslaterFail' });
-  })
-};
+// const checkTranskatePackagesState = () => {
+//   translatorApi.getTranslatePackagesState().then(res => {
+//     // console.log(res)
+//     if (res.info == "ok") {
+//       hasTranslaterPackage.value = true;
+//       // 停止定时器
+//       if (installCheckInterval.value) {
+//         clearInterval(installCheckInterval.value);
+//         installCheckInterval.value = null;
+//       }
+//       message({ type: "success", str: 'message.tranlaterPackageInstallSuccess' });
+//     } else {
+//       hasTranslaterPackage.value = false;
+//     }
+//   }).catch(err => {
+//     installTranslater.value = false;
+//     // 出错时也停止定时器
+//     if (installCheckInterval.value) {
+//       clearInterval(installCheckInterval.value);
+//       installCheckInterval.value = null;
+//     }
+//     message({ type: "warn", str: 'message.getTranslaterFail' });
+//   })
+// };
 
 
 const getAutoCompleteSetting = async () => {
@@ -891,7 +891,7 @@ const saveAutoCompleteSetting = async () => {
 // 初始化时加载设置
 onMounted(() => {
   getTranskateBuktSetting();
-  getTranskatePackagesState();
+  // getTranskatePackagesState();
   getTranskateSetting();
   loadOpenaiSettings();
 });

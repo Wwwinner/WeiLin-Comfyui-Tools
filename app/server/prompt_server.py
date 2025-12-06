@@ -10,7 +10,7 @@ from .fast_autocomplete.autocomplete import fuzzy_search
 from .user_init.user_init import *
 from .translate.local_translate import translate_phrase
 from .translate.openai_translate import openai_translate
-from .translate.api_translate import installTranslateApi,applyTranslateApi,translateText
+# from .translate.api_translate import installTranslateApi,applyTranslateApi,translateText
 from .cloud_warehouse.warehouse import get_main_warehouse,get_warehouse_tree
 from .dao.dao import install_cloud_file_db
 from .cloud_warehouse.save_history import get_package_paths
@@ -709,12 +709,12 @@ async def _start_panel(request):
 # =====================================================================================================
 
 # =================================== 翻译API库 =============================================
-@PromptServer.instance.routes.post(baseUrl+"translate/get/packages/state")
-async def _checkHasInstallTranslateApi(request):
-    apply =  applyTranslateApi()
-    if  apply == False :
-        return web.json_response({"info": 'fail'})
-    return web.json_response({"info": 'ok'})
+# @PromptServer.instance.routes.post(baseUrl+"translate/get/packages/state")
+# async def _checkHasInstallTranslateApi(request):
+#     apply =  applyTranslateApi()
+#     if  apply == False :
+#         return web.json_response({"info": 'fail'})
+#     return web.json_response({"info": 'ok'})
 
 @PromptServer.instance.routes.post(baseUrl+"translate/get/setting")
 async def _getTranslaterSettingData(request):
@@ -732,9 +732,10 @@ async def _apply_translater_setting(request):
     setting = data['setting']
 
     if setting == "translater":
-        apply = applyTranslateApi()
-        if apply == False:
-            return web.json_response({"info": 'fail'})
+        # apply = applyTranslateApi()
+        # if apply == False:
+        #     return web.json_response({"info": 'fail'})
+        return web.json_response({"info": 'ok'})
 
     elif setting == "openai":
         # 可选：这里加一层检测，比如确认 openai 的 api_key 是否已配置
@@ -751,14 +752,14 @@ async def _apply_translater_setting(request):
     return web.json_response({"info": 'ok'})
 
 
-@PromptServer.instance.routes.post(baseUrl+"translate/install/translaterpackage")
-async def _apply_translater_install_package(request):
-    try:
-        installTranslateApi()
-    except Exception as e:
-        print(f"Error: {e}")
-        return web.Response(status=500)
-    return web.json_response({"info": 'ok'})
+# @PromptServer.instance.routes.post(baseUrl+"translate/install/translaterpackage")
+# async def _apply_translater_install_package(request):
+#     try:
+#         installTranslateApi()
+#     except Exception as e:
+#         print(f"Error: {e}")
+#         return web.Response(status=500)
+#     return web.json_response({"info": 'ok'})
 
 @PromptServer.instance.routes.post(baseUrl+"translate/get/tran_setting")
 async def _get_tanslater_tsetting(request):
@@ -801,12 +802,13 @@ async def _tanslater_text(request):
                 result = await translateObject(strObjectData, data_setting['translate_target_lang'])
         else:
             # 仍然走 translators（含 'translater' 与历史的 'network'）
-            result = translateText(
-                text,
-                data_setting['translate_service'],
-                data_setting['translate_source_lang'],
-                data_setting['translate_target_lang']
-            )
+            # result = translateText(
+            #     text,
+            #     data_setting['translate_service'],
+            #     data_setting['translate_source_lang'],
+            #     data_setting['translate_target_lang']
+            # )
+            result = ""
         return web.json_response({"data": result})
     except Exception as e:
         print(f"Error: {e}")
@@ -829,12 +831,13 @@ async def _tanslater_input_text(request):
             if aiInfoData.get("base_url") == "https://api.siliconflow.cn/v1":
                 result = await translateObject(strObjectData, data_setting['translate_source_lang'])
         else:
-            result = translateText(
-                text,
-                data_setting['translate_service'],
-                data_setting['translate_target_lang'],
-                data_setting['translate_source_lang']
-            )
+            # result = translateText(
+            #     text,
+            #     data_setting['translate_service'],
+            #     data_setting['translate_target_lang'],
+            #     data_setting['translate_source_lang']
+            # )
+            result = ""
         return web.json_response({"data": result})
     except Exception as e:
         print(f"Error: {e}")

@@ -267,7 +267,7 @@
         </div>
 
         <!-- 添加一键翻译按钮 -->
-        <button v-if="isTranslateTagEnabled" class="translate-btn" @click="oneClickTranslatePrompt" :title="t('promptBox.oneClickTranslate')">
+        <button v-if="isTranslateTagEnabled" class="translate-btn random-tag-settings-btn" @click="oneClickTranslatePrompt" :title="t('promptBox.oneClickTranslate')">
           <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="token-item-icon" width="24"
             height="24">
             <path
@@ -635,7 +635,6 @@ import ThemeSwitch from '@/components/ThemeSwitch.vue'
 import TagManager from '@/view/tag_manager/tag_index.vue'  // 导入 TagManager 组件
 import LoraStack from './components/lora_stack.vue'
 import MainLabelManager from './components/main_label_manager.vue'
-import translate from 'i18n-jsautotranslate'
 import { translatorApi } from '@/api/translator'
 import { historyApi } from '@/api/history'
 import message from '@/utils/message'
@@ -863,6 +862,7 @@ const mainContentWidth = computed(() => {
 
 let suppressUnsavedOnce = false
 const onSelectMainLabel = (item) => {
+  // console.log('onSelectMainLabel', item)
   if (!item) {
     selectedMainLabelId.value = null
     inputText.value = ''
@@ -3194,9 +3194,9 @@ const initTranslate = async () => {
     localStorage.setItem('weilin_prompt_ui_targetLanguage', savedTargetLanguage);
   }
   if (savedSourceLanguage !== 'auto') {
-    translate.language.setLocal(savedSourceLanguage);
+    // translate.language.setLocal(savedSourceLanguage);
   }
-  translate.language.setDefaultTo(savedTargetLanguage);
+  // translate.language.setDefaultTo(savedTargetLanguage);
 
   // 解决common命名空间翻译未生效问题：强制触发Vue I18n更新
   await nextTick();
@@ -3238,30 +3238,30 @@ const translateFunction = (texts, token) => {
 const finishTranslateEnter = () => {
 
   if (localStorage.getItem('weilin_prompt_ui_translater_setting') == 'network') {
-    const restran = translate.language.recognition(translateText.value)
-    var obj = {
-      from: restran.languageName,
-      to: 'english',
-      texts: [translateText.value]
-    }
+    // const restran = translate.language.recognition(translateText.value)
+    // var obj = {
+    //   from: restran.languageName,
+    //   to: 'english',
+    //   texts: [translateText.value]
+    // }
 
-    translate.request.translateText(obj, function (data) {
-      if (data.result > 0) {
-        const translatedText = data.text.map(item => item.replace(/[\[\]“”]/g, '')).join(', ');
-        tokens.value.push({
-          text: translatedText,
-          translate: translateText.value,
-          isPunctuation: false,
-          isEditing: false,
-          isHidden: false,
-          color: ''
-        });
-        translateText.value = ''
-        updateInputText()
-      }
-      //打印翻译结果
-      // console.log(data);
-    });
+    // translate.request.translateText(obj, function (data) {
+    //   if (data.result > 0) {
+    //     const translatedText = data.text.map(item => item.replace(/[\[\]“”]/g, '')).join(', ');
+    //     tokens.value.push({
+    //       text: translatedText,
+    //       translate: translateText.value,
+    //       isPunctuation: false,
+    //       isEditing: false,
+    //       isHidden: false,
+    //       color: ''
+    //     });
+    //     translateText.value = ''
+    //     updateInputText()
+    //   }
+    //   //打印翻译结果
+    //   // console.log(data);
+    // });
   } else {
 
     let needTranslateData = { text: translateText.value, translate: '' }
